@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # registered install app
+    'blogs' 
 ]
 
 MIDDLEWARE = [
@@ -125,3 +127,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# media file configration
+MEDIA_URL='/media/'
+MEDIA_ROOT = BASE_DIR/'media'

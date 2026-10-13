@@ -13,7 +13,7 @@ def home(request):
 
     # fetch not featured_posts:
     posts=Blog.objects.filter(is_featured=False, status='Published')
-    # print(posts)  
+    print(posts)
    
     # send categories to home.html
     context = {

@@ -14,7 +14,7 @@ def posts_by_category(request, category_id):
     try:
        category=Category.objects.get(pk=category_id)
     except:
-        return redirect('home')
+        return render(request, '404.html')
     
     # 2nd--> method(show 404 error page if the category does not exist)
     # category = get_object_or_404(Category, pk=category_id)

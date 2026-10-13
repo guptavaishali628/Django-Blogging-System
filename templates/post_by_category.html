@@ -1,15 +1,6 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ category }} - Django Blogs</title>
-    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+{% block content %}
     <style>
       .blog-card {
         border: 1px solid #e9ecef;
@@ -40,30 +31,6 @@
         padding-left: 14px;
       }
     </style>
-</head>
-<body>
-    <div class="container">
-      <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-8 pt-1">
-            <a class="blog-header-logo text-dark font-weight-bold" href="/" style="font-family: 'Playfair Display', serif; text-decoration: none; font-size: 2rem;">Django Blog</a>
-          </div>
-          <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="btn btn-sm btn-warning font-weight-bold px-3" href="#">Login</a> &nbsp;
-            <a class="btn btn-sm btn-outline-secondary px-3" href="#">Register</a>
-          </div>
-        </div>
-      </header>
-
-      <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex justify-content-between">
-          {% for cat in categories %}
-          <a class="p-2 text-muted {% if cat.category_name == category or cat == category %}text-warning font-weight-bold{% endif %}" href="#">{{ cat.category_name }}</a>
-          {% endfor %}
-        </nav>
-      </div>
-
-      <hr class="my-4" style="border-top: 1px solid #cccccc;">
 
       {% for post in featured_posts %}
         {% if forloop.first %}
@@ -129,11 +96,4 @@
       </div>
 
     </div>
-
-    <hr class="my-4" style="border-top: 1px solid #cccccc;">
-
-    <footer class="blog-footer text-center pb-4">
-      <p class="mb-0 text-muted">Django blog built with ❤️ by <a href="#" class="text-dark font-weight-bold">Rathan Kumar</a></p>
-    </footer>
-</body>
-</html>
+{% endblock %}

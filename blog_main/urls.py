@@ -16,13 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from . import views # this views inside the blog_main
 from django.conf.urls.static import static
 from django.conf import settings
+from blogs import views as BlogView # this views inside the blogs
 
+# all the request first come here
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     # here we are using urls from blogs app
-    path('category/', include('blogs.urls')) 
+    path('category/', include('blogs.urls')) ,
+    # path for single page of specific cpost display with slug:
+    path('<slug:slug>/', BlogView.blogs, name='blogs')  # blogs ye naam <a href={url 'blogs' post.slug}>
+
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

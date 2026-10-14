@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import Blog, Category
 
 # Create your views here.
+
+# function for posts_by_category
 def posts_by_category(request, category_id):
     # fetch the posts that belpongs to the category with the id 'category_id'
     posts = Blog.objects.filter(status='Published', category=category_id)
@@ -25,3 +27,13 @@ def posts_by_category(request, category_id):
     }
  
     return render(request, 'post_by_category.html', context)
+
+# function for single page blogs display
+def blogs(request, slug):
+    single_blog = get_object_or_404(Blog, slug=slug, status='Published')
+    context={
+        'single_blog': single_blog,
+    }
+    return render(request, 'blogs.html', context)
+
+

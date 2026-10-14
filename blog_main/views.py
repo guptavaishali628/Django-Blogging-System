@@ -4,7 +4,7 @@ from blogs.models import Category, Blog
 
 def home(request):
     # fetch all the categories from database:
-    categories = Category.objects.all()
+    # categories = Category.objects.all()  # coming from context_processor 
     # print(categories) # to print on shell
    
     # fetch featured_posts from database:
@@ -17,7 +17,7 @@ def home(request):
    
     # send categories to home.html
     context = {
-        'categories':  categories,
+        # 'categories':  categories,
         'featured_posts': featured_posts,
         'posts': posts,
     }

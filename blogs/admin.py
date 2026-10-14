@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Blog
+from .models import Category, Blog, About, SocialLink
 
 # prepopulated slug (here we will generate slug automatically based on title)
 # and pass BlogAdmin in Blog register
@@ -11,7 +11,19 @@ class BlogAdmin(admin.ModelAdmin):
     # add listeditable
     list_editable = ('is_featured',)
 
+# adding about section with only one entry
+class AboutAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        count = About.objects.all().count()
+        if count == 0:
+            return True
+        return False    
+
 # Register your models here.
 admin.site.register(Category)
 admin.site.register(Blog, BlogAdmin)
+admin.site.register(About, AboutAdmin)
+admin.site.register(SocialLink)
+
+
 

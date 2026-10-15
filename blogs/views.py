@@ -1,6 +1,8 @@
 from django.shortcuts import redirect,render, get_object_or_404
 from django.http import HttpResponse
 from .models import Blog, Category
+# the Q objects allows u to makes the complex lookups such as OR operations
+from django.db.models import Q
 
 # Create your views here.
 
@@ -36,4 +38,26 @@ def blogs(request, slug):
     }
     return render(request, 'blogs.html', context)
 
+# Search function
+def search(request):
+    # ye keyword yha se get kr rhe hai url se http://127.0.0.1:8000/blogs/search?keyword=socially
+    keyword = request.GET.get('keyword')
+    # print("keyword",keyword) # printing on console
+    # now we will match this keyword from blogs
+    # fetch the blog
+    # blogs=Blog.objects.filter(title__contains=keyword, status="Published")  # here , represent and operator when  the both conditions are true then the code will run
+
+    # use of Q functions
+    blogs=Blog.objects.filter(Q(title__icontains=keyword) | 
+                              Q(short_description__icontains=keyword) | 
+                              Q(blog_body__icontains=keyword), 
+                              status="Published"
+    )
+    # print(blogs)
+
+    context={
+        'blogs': blogs,
+        'keyword': keyword
+    }
+    return render(request, 'search.html', context)
 

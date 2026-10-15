@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+      .blog-card {
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background: #ffffff;
+      }
+      .blog-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      }
+      .post-title {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 700;
+        color: #212529;
+        text-decoration: none !important;
+      }
+      .post-title:hover {
+        color: #d39e00 !important;
+        text-decoration: none !important;
+      }
+      .post-meta {
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+      }
+      .category-banner {
+        border-left: 5px solid #ffc107;
+        padding-left: 14px;
+      }
+    </style>
+
+      {% for post in featured_posts %}
+        {% if forloop.first %}
+        <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark position-relative shadow-sm"
+            {% if post.featured_image %}
+            style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ post.featured_image.url }}'); background-size: cover; background-position: center;"
+            {% endif %}>
+          <div class="col-md-8 px-0">
+            <span class="badge badge-warning text-dark text-uppercase px-2 py-1 mb-2 font-weight-bold">Top Story</span>
+            <h1 class="display-4 font-italic" style="font-family: 'Playfair Display', serif;">
+              <a href="{% url 'blogs' post.slug %}" class="text-white" style="text-decoration: none;">
+                {{ post.title }}
+              </a>
+            </h1>
+            <p class="lead my-3">{{ post.short_description }}</p>
+            <p class="lead mb-0">
+              <a href="{% url 'blogs' post.slug %}" class="text-warning font-weight-bold" style="text-decoration: none;">
+                Continue reading &rarr;
+              </a>
+            </p>
+          </div>
+        </div>
+        <hr class="my-4" style="border-top: 1px solid #cccccc;">
+        {% endif %}
+      {% endfor %}
+
+      <!-- Heading Section -->
+      <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom category-banner">
+        <h3 class="text-uppercase text-dark font-weight-bold m-0" style="letter-spacing: 2px;">
+          Search Results: <span class="text-warning">"{{ keyword }}"</span>
+        </h3>
+        {% if blogs %}
+        <span class="badge badge-light border text-muted px-2 py-1">{{ blogs.count }} Posts</span>
+        {% endif %}
+      </div>
+
+      <!-- Posts Grid -->
+      <div class="row">
+        <!-- UPDATE 2: posts -> blogs -->
+        {% if blogs %}
+          <!-- UPDATE 3: post in posts -> i in blogs -->
+          {% for i in blogs %}
+          <div class="col-md-6 mb-4 d-flex">
+            <div class="card blog-card w-100 h-100">
+              {% if i.featured_image %}
+              <a href="{% url 'blogs' i.slug %}">
+                <img class="card-img-top" src="{{ i.featured_image.url }}" alt="{{ i.title }}" style="height: 200px; object-fit: cover; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+              </a>
+              {% endif %}
+              <div class="card-body d-flex flex-column p-4">
+                <div class="post-meta text-muted mb-2">
+                  <span>{{ i.created_at|timesince }} ago</span> &bull; 
+                  <span class="text-dark font-weight-bold">{{ i.author }}</span>
+                </div>
+                
+                <!-- Title link properly mapped -->
+                <h4 class="mb-2">
+                  <a href="{% url 'blogs' i.slug %}" class="post-title">
+                    {{ i.title }}
+                  </a>
+                </h4>
+
+                <p class="card-text text-secondary mb-4 flex-grow-1" style="line-height: 1.6;">
+                  {{ i.short_description|truncatewords:24 }}
+                </p>
+                <div>
+                  <a href="{% url 'blogs' i.slug %}" class="text-warning font-weight-bold" style="text-decoration: none;">
+                    Read full story &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-12 my-4">
+            <p class="py-5 text-center font-italic lead rounded m-0" style="background-color: #e2e6ea; color: #495057; border: 1px dashed #6c757d; font-weight: 500; letter-spacing: 1px;">
+              No posts found matching your search.
+            </p>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="my-4">
+        <a href="/" class="btn btn-warning px-4 py-2 font-weight-bold">
+          &larr; Back to Home
+        </a>
+      </div>
+      <center>
+        <aside class="col-lg-4 blog-sidebar">
+            {% include 'about_social_link.html' %}
+        </aside>
+      </center>
+{% endblock %}

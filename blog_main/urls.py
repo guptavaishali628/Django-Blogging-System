@@ -28,6 +28,9 @@ urlpatterns = [
     # here we are using urls from blogs app
     path('category/', include('blogs.urls')) ,
     # path for single page of specific cpost display with slug:
-    path('<slug:slug>/', BlogView.blogs, name='blogs')  # blogs ye naam <a href={url 'blogs' post.slug}>
+    path('<slug:slug>/', BlogView.blogs, name='blogs'),  # blogs ye naam <a href={url 'blogs' post.slug}>
+
+    # search end point
+    path('blogs/search', BlogView.search, name='search'),
 
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

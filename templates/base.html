@@ -17,13 +17,40 @@
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <!-- logo section -->
-         <div class="col-8 pt-1">
+         <div class="col-4 pt-1">
             <a href="/" class="d-inline-block">
               <img src="{% static 'images/logo.jpeg' %}" 
                    alt="The Paperless Press" 
                    style="height: 115px; max-width: 100%; object-fit: contain;">
             </a>
           </div>
+          <!-- search section -->
+          <div class="card mb-4 border-0 shadow-sm" style="background-color: #f8f9fa; margin-top: 20px;">
+            <form action="{% url 'search' %}" method="GET" style="margin-top: 8px;">  <!-- sarch url from urls.py-->
+              <div class="input-group">
+                <!-- Input Field -->
+               <!-- this is the name='keyword' which we want to search -->
+                <input type="text" 
+                      class="form-control"
+                      name="keyword"
+                      value="{{ keyword }}"  
+                      placeholder="Search stories..." 
+                      style="height: 49px; font-size: 1rem; padding: 23px 45px; border-radius: 4px 0 0 4px; border: 1.5px solid #ced4da;">
+                
+                <!-- Go Button -->
+                <div class="input-group-append">
+                  <button class="btn btn-warning" 
+                          type="submit" 
+                          style="height: 49px; font-size: 1rem; font-weight: 600; padding: 0 22px; border-radius:  0 4px 4px 0;">
+                    🔍︎
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- auth buttons -->
+
           <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="btn btn-sm btn-warning font-weight-bold px-3 py-2" href="#">Login</a> &nbsp;
             <a class="btn btn-sm btn-outline-secondary px-3 py-2" href="#">Register</a>

@@ -27,10 +27,13 @@ urlpatterns = [
     path('', views.home, name='home'),
     # here we are using urls from blogs app
     path('category/', include('blogs.urls')) ,
-    # path for single page of specific cpost display with slug:
-    path('<slug:slug>/', BlogView.blogs, name='blogs'),  # blogs ye naam <a href={url 'blogs' post.slug}>
+    # path for single page of specific cpost display with slug:(blogs/slug kreneg ni to regiser login function kaam ni krega)
+    path('blogs/<slug:slug>/', BlogView.blogs, name='blogs'),  # blogs ye naam <a href={url 'blogs' post.slug}>
 
     # search end point
     path('blogs/search', BlogView.search, name='search'),
+
+    # register url
+    path('register/', views.register, name='register')
 
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

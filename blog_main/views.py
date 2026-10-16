@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from blogs.models import Category, Blog
+from .forms import RegistrationForm
 
 def home(request):
     # fetch all the categories from database:
@@ -24,3 +25,25 @@ def home(request):
     
     # return HttpResponse('<h2>Homepage</h2>')
     return render(request, 'home.html', context)
+
+# register function
+def register(request):
+    # handle post req
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        # check form data is coming is valid or not
+        if form.is_valid():
+            # save the form
+            form.save()
+            return redirect('register')
+        else:
+            print(form.errors)  
+
+    else:
+        form = RegistrationForm()
+
+    form = RegistrationForm()
+    context={
+        'form':form,
+    }
+    return render(request,'register.html', context)

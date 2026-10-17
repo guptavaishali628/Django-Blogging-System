@@ -43,6 +43,9 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     
     # reset_pass url
-    path('reset_pass/', views.reset_pass, name='reset_pass')
+    path('reset_pass/', views.reset_pass, name='reset_pass'),
+
+    # dashboard url pattern
+    path('dashboard/', include('dashboards.urls')),
 
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

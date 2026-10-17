@@ -56,7 +56,7 @@
             <a class="btn btn-sm btn-warning font-weight-bold px-3 py-2" href="{% url 'login' %}">Login</a> &nbsp;
             <a class="btn btn-sm btn-outline-secondary px-3 py-2" href="{% url 'register' %}">Register</a>
             {% else %}
-            <span> you are logged in as {{user}}</span>
+            <span><a href="{% url 'dashboard' %}">Dashboard</a></span>
             &emsp;
             <spna><a href="{% url 'logout' %}">Logout</a></spna>
             {% endif %}

@@ -39,6 +39,9 @@ urlpatterns = [
     # login url
     path('login/', views.login, name='login'),
 
+    # logout url
+    path('logout/', views.logout, name='logout'),
+    
     # reset_pass url
     path('reset_pass/', views.reset_pass, name='reset_pass')
 

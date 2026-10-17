@@ -71,6 +71,10 @@ def login(request):
     }
     return render(request, 'login.html', context)
 
+# logout function
+def logout(request):
+    auth.logout(request)  # only take user
+    return redirect('home')
 # reset password
 def reset_pass(request):
     form= PasswordResetForm()

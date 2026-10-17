@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from blogs.models import Category, Blog
 from .forms import RegistrationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
+from django.contrib import auth
 
 def home(request):
     # fetch all the categories from database:
@@ -35,15 +37,44 @@ def register(request):
         if form.is_valid():
             # save the form
             form.save()
-            return redirect('register')
+            return redirect('login')
         else:
             print(form.errors)  
 
     else:
         form = RegistrationForm()
 
-    form = RegistrationForm()
     context={
         'form':form,
     }
     return render(request,'register.html', context)
+
+# login function
+def login(request):
+    # check is req is post or not
+    if request.method=='POST':
+        form = AuthenticationForm(request, request.POST)  # enetring data inside the login form
+        if form.is_valid():
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password']
+
+            # now we will take this user and password from  this and this authenticate and return the user
+            user = auth.authenticate(username=username, password=password)
+            if user is not None:
+                auth.login(request, user)
+            return redirect('home')    
+
+    # inbuilt login phone
+    form = AuthenticationForm
+    context={
+        'form': form
+    }
+    return render(request, 'login.html', context)
+
+# reset password
+def reset_pass(request):
+    form= PasswordResetForm()
+    context={
+        'form':form
+    }
+    return render(request, 'forget_password.html', context)

@@ -34,6 +34,12 @@ urlpatterns = [
     path('blogs/search', BlogView.search, name='search'),
 
     # register url
-    path('register/', views.register, name='register')
+    path('register/', views.register, name='register'),
+
+    # login url
+    path('login/', views.login, name='login'),
+
+    # reset_pass url
+    path('reset_pass/', views.reset_pass, name='reset_pass')
 
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

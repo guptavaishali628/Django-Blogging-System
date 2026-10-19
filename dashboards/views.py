@@ -61,3 +61,10 @@ def edit_category(request,pk):
         'category':category
     }
     return render(request, 'dashboard/edit_category.html', context)
+
+# delete category function
+def delete_category(request, pk):
+    # take out the object from database and delete
+    category=get_object_or_404(Category, pk=pk)
+    category.delete()
+    return redirect('categories')

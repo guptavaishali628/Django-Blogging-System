@@ -6,5 +6,8 @@ urlpatterns = [
     # category path
     path('categories/', views.categories, name='categories' ),
     # add category path
-    path('categories/add/',  views.add_category, name='add_category')
+    path('categories/add/',  views.add_category, name='add_category'),
+    # edit path
+    path('categories/edit/<int:pk>',  views.edit_category, name='edit_category'),
+
 ]

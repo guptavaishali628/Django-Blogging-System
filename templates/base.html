@@ -11,37 +11,48 @@
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
-  </head>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 <body>
     <div class="container">
       <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="row align-items-center">
+          
           <!-- logo section -->
-         <div class="col-4 pt-1">
+          <div class="col-6 col-md-3">
             <a href="/" class="d-inline-block">
               <img src="{% static 'images/logo.jpeg' %}" 
                    alt="The Paperless Press" 
-                   style="height: 115px; max-width: 100%; object-fit: contain;">
+                   style="height: 65px; max-width: 100%; object-fit: contain;">
             </a>
           </div>
+
+          <!-- auth buttons -->
+          <div class="col-6 col-md-4 order-md-3 d-flex justify-content-end align-items-center">
+            {% if not user.is_authenticated %}
+              <a class="btn btn-sm btn-warning font-weight-bold mr-2 text-nowrap" href="{% url 'login' %}">Login</a>
+              <a class="btn btn-sm btn-outline-secondary text-nowrap" href="{% url 'register' %}">Register</a>
+            {% else %}
+              <a class="btn btn-sm btn-warning font-weight-bold mr-2 text-nowrap" href="{% url 'dashboard' %}">Dashboard</a>
+              <a class="btn btn-sm btn-warning font-weight-bold text-nowrap" href="{% url 'logout' %}">Logout</a>
+            {% endif %}
+          </div>
+
           <!-- search section -->
-          <div class="card mb-4 border-0 shadow-sm" style="background-color: #f8f9fa; margin-top: 20px;">
-            <form action="{% url 'search' %}" method="GET" style="margin-top: 8px;">  <!-- sarch url from urls.py-->
+          <div class="col-12 col-md-5 order-md-2 mt-3 mt-md-0">
+            <form action="{% url 'search' %}" method="GET" class="m-0">
               <div class="input-group">
-                <!-- Input Field -->
-               <!-- this is the name='keyword' which we want to search -->
                 <input type="text" 
-                      class="form-control"
-                      name="keyword"
-                      value="{{ keyword }}"  
-                      placeholder="Search stories..." 
-                      style="height: 49px; font-size: 1rem; padding: 23px 45px; border-radius: 4px 0 0 4px; border: 1.5px solid #ced4da;">
-                
-                <!-- Go Button -->
+                       class="form-control"
+                       name="keyword"
+                       value="{{ keyword }}"  
+                       placeholder="Search stories..." 
+                       style="height: 42px; border-radius: 4px 0 0 4px; border: 1.5px solid #ced4da;">
                 <div class="input-group-append">
                   <button class="btn btn-warning" 
                           type="submit" 
-                          style="height: 49px; font-size: 1rem; font-weight: 600; padding: 0 22px; border-radius:  0 4px 4px 0;">
+                          style="height: 42px; padding: 0 16px; border-radius: 0 4px 4px 0; font-weight: 600;">
                     🔍︎
                   </button>
                 </div>
@@ -49,18 +60,6 @@
             </form>
           </div>
 
-          <!-- auth buttons -->
-
-          <div class="col-4 d-flex justify-content-end align-items-center">
-            {% if not user.is_authenticated %}
-            <a class="btn btn-sm btn-warning font-weight-bold px-3 py-2" href="{% url 'login' %}">Login</a> &nbsp;
-            <a class="btn btn-sm btn-outline-secondary px-3 py-2" href="{% url 'register' %}">Register</a>
-            {% else %}
-            <span><a href="{% url 'dashboard' %}">Dashboard</a></span>
-            &emsp;
-            <spna><a href="{% url 'logout' %}">Logout</a></spna>
-            {% endif %}
-          </div>
         </div>
       </header>
 
@@ -89,7 +88,7 @@
 <hr class="my-4" style="border-top: 1px solid #cccccc;">
    
 <footer class="blog-footer text-center">
-  <p>Django blog built with ❤️ by <a href="#">Rathan Kumar</a></p>
+  <p>Django blog built with ❤️ by <a href="#">Vaishali Gupta</a></p>
 </footer>
 </body>
 </html>

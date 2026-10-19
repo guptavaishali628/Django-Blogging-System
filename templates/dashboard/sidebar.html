@@ -1,0 +1,88 @@
+<style>
+  /* Inactive Link Styling */
+  .sidebar-link {
+      color: #495057 !important;
+      background-color: transparent;
+      border-radius: 6px;
+      border-left: 3px solid transparent;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  /* Hover without text moving */
+  .sidebar-link:hover {
+      background-color: #eceff1;
+      color: #212529 !important;
+      border-left: 3px solid #ffc107;
+      text-decoration: none;
+  }
+
+  /* Active / Selected Tab */
+  .sidebar-active {
+      background-color: #ffc107 !important;
+      color: #212529 !important;
+      border-radius: 6px;
+      border-left: 3px solid #d39e00;
+  }
+
+  /* Logout button hover */
+  .sidebar-logout {
+      color: #dc3545 !important;
+      border-radius: 6px;
+      border-left: 3px solid transparent;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .sidebar-logout:hover {
+      background-color: #fde8e8;
+      border-left: 3px solid #dc3545;
+      text-decoration: none;
+  }
+</style>
+
+<div class="col-md-3 mb-4">
+    <!-- Sidebar Box with Theme Background -->
+    <div class="card border shadow-sm rounded" style="background-color: #fbfbfb; border-color: #e9ecef !important;">
+        
+        <!-- Header -->
+        <div class="card-header border-bottom py-3" style="background-color: #f3f4f6; border-color: #e9ecef !important;">
+            <h6 class="m-0 font-weight-bold text-dark text-uppercase" style="letter-spacing: 0.8px; font-size: 0.82rem;">
+                <i class="fa fa-sliders mr-2 text-warning"></i> Quick Navigation
+            </h6>
+        </div>
+
+        <!-- Links Container -->
+        <div class="nav flex-column p-2" aria-orientation="vertical">
+            
+            <!-- Dashboard Link -->
+            <a href="{% url 'dashboard' %}" 
+               class="nav-link py-2 px-3 mb-1 font-weight-bold d-flex align-items-center {% if '/dashboard/' == request.path %}sidebar-active{% else %}sidebar-link{% endif %}">
+                <i class="fa fa-th-large mr-3" style="width: 18px;"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- Categories Link -->
+            <a href="{% url 'categories' %}" 
+               class="nav-link py-2 px-3 mb-1 font-weight-bold d-flex align-items-center {% if '/dashboard/categories/' == request.path %}sidebar-active{% else %}sidebar-link{% endif %}">
+                <i class="fa fa-list-alt mr-3" style="width: 18px;"></i>
+                <span>Categories</span>
+            </a>
+
+            <!-- Posts Link -->
+            <a href="#" 
+               class="nav-link py-2 px-3 mb-1 font-weight-bold d-flex align-items-center {% if '/dashboard/posts/' in request.path %}sidebar-active{% else %}sidebar-link{% endif %}">
+                <i class="fa fa-newspaper-o mr-3" style="width: 18px;"></i>
+                <span>Posts</span>
+            </a>
+
+            <hr class="my-2" style="border-top: 1px solid #e9ecef;">
+
+            <!-- Logout Link -->
+            <a href="{% url 'logout' %}" 
+               class="nav-link py-2 px-3 font-weight-bold d-flex align-items-center sidebar-logout">
+                <i class="fa fa-sign-out mr-3" style="width: 18px;"></i>
+                <span>Logout</span>
+            </a>
+            
+        </div>
+    </div>
+</div>

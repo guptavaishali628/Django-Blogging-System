@@ -4,37 +4,61 @@
 
 <div class="row">
     <!-- Left sidebar -->
-     <div class="col-md-3">
-        <div class="nav flex-column nav-pills bg-light" aria-orientation="vertical">
-            <a href="" class="nav-link text-dark bg-warning">Dashboard</a>
-            <a href="" class="nav-link text-dark">Categories</a>
-            <a href="" class="nav-link text-dark">Posts</a>
-            <a href="" class="nav-link text-dark">Logout</a>
-            
+    {% include 'dashboard/sidebar.html' %}
+    
+    <!-- Right side content -->
+    <div class="col-md-9 mb-4">
+        
+        <!-- Welcome Header Banner -->
+        <div class="d-flex justify-content-between align-items-center p-3 mb-4 rounded border bg-light shadow-sm" style="border-left: 4px solid #ffc107 !important;">
+            <div>
+                <h5 class="m-0 font-weight-bold text-dark">Dashboard Overview</h5>
+                <small class="text-muted">Welcome back, <span class="font-weight-bold text-dark">{{ user }}</span>!</small>
+            </div>
+            <span class="badge badge-warning px-3 py-2 text-dark font-weight-bold" style="font-size: 0.85rem; border-radius: 20px;">
+                <i class="fa fa-user-circle mr-1"></i> Active
+            </span>
         </div>
-     </div>
-    <!-- right side design -->
-     <div class="col-md-9">
+
+        <!-- Metric Stat Cards -->
         <div class="row">
-            <div class="col">
-                <div class="card border-default mb-3">
-                    <div class="card-header text-center text-uppercase font-weight-bold">All Categories</div>
-                    <div class="card-body text-dark">
-                        <h5 class="card-title text-center">{{category_count}}</h5>
+            
+            <!-- All Categories Card -->
+            <div class="col-md-6 mb-3">
+                <div class="card border-0 shadow-sm rounded-lg" style="background-color: #ffffff; border-top: 3px solid #ffc107 !important;">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted font-weight-bold text-uppercase mb-1" style="font-size: 0.8rem; letter-spacing: 0.8px;">
+                                Total Categories
+                            </p>
+                            <h2 class="font-weight-bold text-dark mb-0">{{ category_count }}</h2>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 55px; height: 55px; background-color: #fff9e6;">
+                            <i class="fa fa-list-alt text-warning fa-2x"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
-             <div class="col">
-                <div class="card border-default mb-3">
-                    <div class="card-header text-center text-uppercase font-weight-bold">All Categories</div>
-                    <div class="card-body text-dark">
-                        <h5 class="card-title text-center">{{blogs_count}}</h5>
+            <!-- All Posts / Blogs Card -->
+            <div class="col-md-6 mb-3">
+                <div class="card border-0 shadow-sm rounded-lg" style="background-color: #ffffff; border-top: 3px solid #212529 !important;">
+                    <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted font-weight-bold text-uppercase mb-1" style="font-size: 0.8rem; letter-spacing: 0.8px;">
+                                Total Posts
+                            </p>
+                            <h2 class="font-weight-bold text-dark mb-0">{{ blogs_count }}</h2>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 55px; height: 55px; background-color: #f1f3f5;">
+                            <i class="fa fa-newspaper-o text-dark fa-2x"></i>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
-     </div>
+    </div>
 </div>
 
 {% endblock %}

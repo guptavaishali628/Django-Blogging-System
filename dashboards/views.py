@@ -68,3 +68,13 @@ def delete_category(request, pk):
     category=get_object_or_404(Category, pk=pk)
     category.delete()
     return redirect('categories')
+
+# Blog posts function
+def posts(request):
+    # fetch all the posts 
+    posts=Blog.objects.all()
+    context={
+        'posts':posts,
+    }
+
+    return render(request, 'dashboard/posts.html', context)

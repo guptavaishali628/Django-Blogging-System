@@ -68,7 +68,7 @@
             </a>
 
             <!-- Posts Link -->
-            <a href="#" 
+            <a href="{% url 'posts' %}" 
                class="nav-link py-2 px-3 mb-1 font-weight-bold d-flex align-items-center {% if '/dashboard/posts/' in request.path %}sidebar-active{% else %}sidebar-link{% endif %}">
                 <i class="fa fa-newspaper-o mr-3" style="width: 18px;"></i>
                 <span>Posts</span>

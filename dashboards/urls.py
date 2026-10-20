@@ -15,4 +15,12 @@ urlpatterns = [
 
     # blog post crud
     path('posts/', views.posts, name='posts' ),
+    # add blog post
+    path('posts/add', views.add_post, name='add_post'),
+    # edit blog post
+    path('posts/edit', views.edit_post, name='edit_post'),
+    # delete blog post
+    path('posts/delete', views.delete_post, name='delete_post')
+
+
 ]

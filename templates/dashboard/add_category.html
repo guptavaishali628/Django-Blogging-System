@@ -4,6 +4,22 @@
 <!-- load crispy form tags -->
 {% load crispy_forms_tags %}
 
+<style>
+    .custom-form .form-control:focus,
+    .custom-form .custom-select:focus,
+    .custom-form input:focus,
+    .custom-form textarea:focus {
+        border-color: #ffc107 !important;
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25) !important;
+        outline: none;
+    }
+    .custom-form .form-group label {
+        font-weight: 600 !important;
+        font-size: 0.95rem;
+        color: #343a40;
+    }
+</style>
+
 <div class="row">
     <!-- Left sidebar -->
     {% include 'dashboard/sidebar.html' %}
@@ -23,7 +39,7 @@
         </div> 
         <!-- Form part -->
          <!-- Form Part -->
-        <div class="card border-0 shadow-sm rounded-lg p-4 bg-white" style="border-top: 3px solid #ffc107 !important;">
+        <div class="card mx-auto custom-form border-0 shadow-sm rounded-lg p-4 bg-white" style=" max-width: 600px; border-top: 3px solid #ffc107 !important ;">
             <form action="{% url 'add_category' %}" method="POST">
                 {% csrf_token %}
                 {{form | crispy}}

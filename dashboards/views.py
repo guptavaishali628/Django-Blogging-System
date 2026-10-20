@@ -4,7 +4,7 @@ from blogs.models import Category, Blog
 from django.contrib.auth.decorators import login_required
 
 # importing category form
-from dashboards.forms import CategoryForm
+from dashboards.forms import CategoryForm, BlogPostForm
 
 # Create your views here.
 
@@ -78,3 +78,20 @@ def posts(request):
     }
 
     return render(request, 'dashboard/posts.html', context)
+
+# add blog posts
+def add_post(request):
+    form=BlogPostForm
+    context={
+        'form':form,
+    }
+    return render(request,'dashboard/add_post.html', context)
+
+# edit blog posts
+def edit_post(request):
+    return render(request,'dashboard/edit_post.html')
+
+# Delete blog posts
+def delete_post(request):
+    return render(request,'dashboard/delete_post.html')
+

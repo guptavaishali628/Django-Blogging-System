@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- Custom Form Styling -->
+<style>
+    /* Crispy Form Fields Modern Styling */
+    .post-card .form-group label {
+        font-weight: 600;
+        font-size: 0.88rem;
+        color: #343a40;
+        margin-bottom: 6px;
+        letter-spacing: 0.3px;
+    }
+
+    .post-card .form-control,
+    .post-card .custom-select {
+        border-radius: 6px;
+        border: 1px solid #ced4da;
+        padding: 0.65rem 0.9rem;
+        font-size: 0.92rem;
+        color: #495057;
+        background-color: #fff;
+        transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .post-card .form-control:focus,
+    .post-card .custom-select:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+    }
+
+    .post-card textarea.form-control {
+        min-height: 130px;
+    }
+
+    .post-card .form-check {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .post-card .form-check-label {
+        font-weight: 500;
+        color: #495057;
+        cursor: pointer;
+    }
+</style>
+
+<div class="row">
+    <!-- Left sidebar -->
+    {% include 'dashboard/sidebar.html' %}
+
+    <!-- Right side content -->
+    <div class="col-md-9 mb-4">
+        
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <div>
+                <h3 class="font-weight-bold text-dark m-0">Add New Post</h3>
+                <small class="text-muted">Create and publish a new post on your blog</small>
+            </div> 
+            <a href="{% url 'posts' %}" class="btn btn-outline-secondary font-weight-bold shadow-sm px-3 py-2" style="border-radius: 6px;">
+                <i class="fa fa-arrow-left mr-1"></i> Back to Posts
+            </a>  
+        </div> 
+
+        <!-- Form Card -->
+        <div class="card border-0 shadow-sm rounded-lg p-4 bg-white post-card mx-auto" style="border-top: 4px solid #ffc107 !important; max-width: 720px;">
+            <form action="{% url 'add_post' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Crispy Form Fields -->
+                <div class="mb-4">
+                    {{ form | crispy }}
+                </div>
+
+                <hr class="my-4" style="border-top: 1px solid #e9ecef;">
+
+                <!-- Action Buttons -->
+                <div class="d-flex align-items-center justify-content-end">
+                    <a href="{% url 'posts' %}" class="btn btn-light border text-muted px-4 py-2 mr-2 font-weight-bold" style="border-radius: 6px;">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-warning font-weight-bold text-dark px-4 py-2 shadow-sm" style="border-radius: 6px;">
+                        <i class="fa fa-check-circle mr-1"></i> Publish Post
+                    </button>
+                </div>
+            </form>
+        </div> 
+
+    </div>       
+</div>
+
+{% endblock %}

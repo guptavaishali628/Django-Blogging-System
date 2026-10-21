@@ -133,6 +133,8 @@ def edit_post(request, pk):
     return render(request, 'dashboard/edit_post.html', context)
 
 # Delete blog posts
-def delete_post(request):
-    return render(request,'dashboard/delete_post.html')
+def delete_post(request, pk):
+    post=get_object_or_404(Blog, pk=pk)
+    post.delete()
+    return redirect('posts')
 

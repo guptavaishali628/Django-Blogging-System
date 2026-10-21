@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 # importing category form
 from dashboards.forms import CategoryForm, BlogPostForm
 
+# for slug error handle import slugify function
+from django.template.defaultfilters import slugify
+
 # Create your views here.
 
 # dashboards function
@@ -81,7 +84,29 @@ def posts(request):
 
 # add blog posts
 def add_post(request):
-    form=BlogPostForm
+    # we will receive the post request here from form in add_post.html
+    if request.method=='POST':
+        form=BlogPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            # here we want to add custom data to this form.
+            # temporary saving the form
+            post = form.save(commit=False)  #commit=false actually give us the model object which is post
+            # inside the post object we get author field(who is author? the person logged in)
+            post.author = request.user
+            # now save the post.save()instead saving form:
+            # post.save()
+            # print("valid form")
+            # form.save()
+            # put the title inside the slugify function
+            title=form.cleaned_data['title']
+            post.slug=slugify(title) + '-'+str(post.id) # to make it unique
+            post.save()
+            
+            return redirect('posts')
+        else:
+            # print("form is invalid")
+            print(form.errors)
+    form=BlogPostForm()
     context={
         'form':form,
     }

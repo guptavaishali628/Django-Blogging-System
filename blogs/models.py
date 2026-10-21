@@ -1,6 +1,8 @@
 from django.db import models
 # The built-in User model lives in django.contrib.auth.models:
 from django.contrib.auth.models import User
+# # to remove the slug error :
+# from django.utils.text import slugify
 
 # Create your models here.
 
@@ -39,6 +41,22 @@ class Blog(models.Model):
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # slug code
+    # def save(self, *args, **kwargs):
+    #     # Agar slug empty hai to title se slug banayenge
+    #     if not self.slug:
+    #         base_slug = slugify(self.title)
+    #         slug = base_slug
+    #         counter = 1
+    #         # Check karein agar slug pehle se database me kisi aur post ke paas hai
+    #         while Blog.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+    #             slug = f"{base_slug}-{counter}"
+    #             counter += 1
+    #         self.slug = slug
+            
+    #     super().save(*args, **kwargs)
+    #-----------writing this slug code on views.py--------------->
 
     def __str__(self):
             return self.title

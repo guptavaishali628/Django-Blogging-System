@@ -113,8 +113,24 @@ def add_post(request):
     return render(request,'dashboard/add_post.html', context)
 
 # edit blog posts
-def edit_post(request):
-    return render(request,'dashboard/edit_post.html')
+def edit_post(request, pk):
+    post = get_object_or_404(Blog, pk=pk)
+
+    if request.method == 'POST':
+        form = BlogPostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            title=form.cleaned_data['title']
+            post.slug = slugify(title)+ '_'+str(post.id)
+            post = form.save()
+            return redirect('posts')
+        
+    form = BlogPostForm(instance=post)
+
+    context = {
+        'form': form,
+        'post': post,
+    }
+    return render(request, 'dashboard/edit_post.html', context)
 
 # Delete blog posts
 def delete_post(request):

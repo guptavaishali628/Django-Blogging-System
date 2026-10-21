@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <!-- Left sidebar -->
+    {% include 'dashboard/sidebar.html' %}
+
+    <!-- Right side content -->
+    <div class="col-md-9 mb-4">
+        
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <div>
+                <h3 class="font-weight-bold text-dark m-0">All Users</h3>
+                <small class="text-muted">Manage all registered users</small>
+            </div>
+            <!-- Add User Button -->
+            <a href="" class="btn btn-dark font-weight-bold text-white shadow-sm px-3 py-2" style="border-radius: 6px;">
+                <i class="fa fa-plus-circle text-warning mr-1"></i> Add User
+            </a>
+        </div>
+
+        <!-- Table -->
+        <div class="card border-0 shadow-sm rounded-lg overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead style="background-color: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                        <tr>
+                            <th scope="col" class="py-3 px-4 text-secondary font-weight-bold text-uppercase" style="font-size: 0.78rem; letter-spacing: 0.8px;">Sr.</th>
+                            <th scope="col" class="py-3 px-4 text-secondary font-weight-bold text-uppercase" style="font-size: 0.78rem; letter-spacing: 0.8px;">Full Name</th>
+                            <th scope="col" class="py-3 px-4 text-secondary font-weight-bold text-uppercase" style="font-size: 0.78rem; letter-spacing: 0.8px;">Username</th>
+                            <th scope="col" class="py-3 px-4 text-secondary font-weight-bold text-uppercase" style="font-size: 0.78rem; letter-spacing: 0.8px;">Email</th>
+                            <th scope="col" class="py-3 px-4 text-secondary font-weight-bold text-uppercase text-center" style="font-size: 0.78rem; letter-spacing: 0.8px;">Active</th>
+                            <th scope="col" class="py-3 px-4 text-secondary font-weight-bold text-uppercase text-center" style="font-size: 0.78rem; letter-spacing: 0.8px;">Staff</th>
+                            <th scope="col" class="py-3 px-4 text-secondary font-weight-bold text-uppercase text-center" style="font-size: 0.78rem; letter-spacing: 0.8px;">Superuser</th>
+                            <th scope="col" class="py-3 px-4 text-secondary font-weight-bold text-uppercase text-center" style="font-size: 0.78rem; letter-spacing: 0.8px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}    
+                        <tr style="transition: background-color 0.2s ease;">
+                            <!-- Serial Number Badge -->
+                            <td class="py-3 px-4 font-weight-bold text-muted">
+                                <span class="badge badge-light border text-dark px-2 py-1" style="font-size: 0.85rem;">{{ forloop.counter }}</span>
+                            </td>
+
+                            <!-- Full Name -->
+                            <td class="py-3 px-4 font-weight-bold text-dark">
+                                {% if user.first_name or user.last_name %}
+                                    {{ user.first_name }} {{ user.last_name }}
+                                {% else %}
+                                    <span class="text-muted font-italic">N/A</span>
+                                {% endif %}
+                            </td>
+
+                            <!-- Username -->
+                            <td class="py-3 px-4 text-muted" style="font-size: 0.9rem;">
+                                <span class="badge badge-info px-2 py-1">{{ user.username }}</span>
+                            </td>
+
+                            <!-- Email -->
+                            <td class="py-3 px-4 text-dark" style="font-size: 0.9rem;">
+                                <i class="fa fa-envelope-o mr-1 text-secondary"></i> {{ user.email|default:"N/A" }}
+                            </td>
+
+                            <!-- Active -->
+                            <td class="py-3 px-4 text-center">
+                                {% if user.is_active %}
+                                    <i class="fa fa-check-circle text-success" style="font-size: 1.1rem;" title="Active"></i>
+                                {% else %}
+                                    <i class="fa fa-times-circle text-danger" style="font-size: 1.1rem;" title="Inactive"></i>
+                                {% endif %}
+                            </td>
+
+                            <!-- Staff -->
+                            <td class="py-3 px-4 text-center">
+                                {% if user.is_staff %}
+                                    <i class="fa fa-check-circle text-success" style="font-size: 1.1rem;" title="Staff Member"></i>
+                                {% else %}
+                                    <i class="fa fa-times-circle text-danger" style="font-size: 1.1rem;" title="Not Staff"></i>
+                                {% endif %}
+                            </td>
+
+                            <!-- Superuser -->
+                            <td class="py-3 px-4 text-center">
+                                {% if user.is_superuser %}
+                                    <i class="fa fa-check-circle text-success" style="font-size: 1.1rem;" title="Superuser"></i>
+                                {% else %}
+                                    <i class="fa fa-times-circle text-danger" style="font-size: 1.1rem;" title="Not Superuser"></i>
+                                {% endif %}
+                            </td>
+
+                            <!-- Action Buttons -->
+                            <td class="py-3 px-4 text-center">
+                                <a href="" class="btn btn-sm btn-outline-success mr-1" title="Edit User" style="border-radius: 4px; padding: 4px 10px;">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="" class="btn btn-sm btn-outline-danger" title="Delete User" style="border-radius: 4px; padding: 4px 10px;" onclick="return confirm('Are you sure you want to delete this user?');">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                <i class="fa fa-users fa-3x mb-3 text-warning"></i>
+                                <p class="mb-0 font-weight-bold">No Users found.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

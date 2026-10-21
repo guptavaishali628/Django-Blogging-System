@@ -9,6 +9,9 @@ from dashboards.forms import CategoryForm, BlogPostForm
 # for slug error handle import slugify function
 from django.template.defaultfilters import slugify
 
+# for users
+from django.contrib.auth.models import User
+
 # Create your views here.
 
 # dashboards function
@@ -138,3 +141,11 @@ def delete_post(request, pk):
     post.delete()
     return redirect('posts')
 
+# users function
+def users(request):
+    # fetch the users from django models
+    users= User.objects.all()
+    context={
+        'users':users,
+    }
+    return render(request,'dashboard/users.html', context)

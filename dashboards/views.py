@@ -4,7 +4,7 @@ from blogs.models import Category, Blog
 from django.contrib.auth.decorators import login_required
 
 # importing category form
-from dashboards.forms import CategoryForm, BlogPostForm
+from dashboards.forms import CategoryForm, BlogPostForm, AddUserForm
 
 # for slug error handle import slugify function
 from django.template.defaultfilters import slugify
@@ -149,3 +149,12 @@ def users(request):
         'users':users,
     }
     return render(request,'dashboard/users.html', context)
+
+#  add user function
+def add_user(request):
+    #fetch the form to display :
+    form = AddUserForm()
+    context={
+        'form':form,
+    }
+    return render(request,'dashboard/add_user.html', context)

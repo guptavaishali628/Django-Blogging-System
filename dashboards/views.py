@@ -152,6 +152,13 @@ def users(request):
 
 #  add user function
 def add_user(request):
+    if request.method=='POST':
+        form=AddUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('users')
+        else:
+            print(form.errors)
     #fetch the form to display :
     form = AddUserForm()
     context={

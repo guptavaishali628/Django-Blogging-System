@@ -97,7 +97,7 @@
                                 <a href="{% url 'edit_user' user.id %}" class="btn btn-sm btn-outline-success mr-1" title="Edit User" style="border-radius: 4px; padding: 4px 10px;">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="" class="btn btn-sm btn-outline-danger" title="Delete User" style="border-radius: 4px; padding: 4px 10px;" onclick="return confirm('Are you sure you want to delete this user?');">
+                                <a href="{% url 'delete_user' user.id%}" class="btn btn-sm btn-outline-danger" title="Delete User" style="border-radius: 4px; padding: 4px 10px;" onclick="return confirm('Are you sure you want to delete this user?');">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </td>

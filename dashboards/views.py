@@ -4,7 +4,7 @@ from blogs.models import Category, Blog
 from django.contrib.auth.decorators import login_required
 
 # importing category form
-from dashboards.forms import CategoryForm, BlogPostForm, AddUserForm
+from dashboards.forms import CategoryForm, BlogPostForm, AddUserForm, EditUserForm
 
 # for slug error handle import slugify function
 from django.template.defaultfilters import slugify
@@ -165,3 +165,24 @@ def add_user(request):
         'form':form,
     }
     return render(request,'dashboard/add_user.html', context)
+
+# edit user function
+def edit_user(request, pk):
+    # we need instance to pass the form with data
+    user=get_object_or_404(User,pk=pk)
+    if request.method=='POST':
+        form=EditUserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('users')
+        else:
+            print(form.errors)
+    form=EditUserForm(instance=user)
+    context={
+        'form':form,
+    }
+    return render(request,'dashboard/edit_user.html', context)
+
+
+
+

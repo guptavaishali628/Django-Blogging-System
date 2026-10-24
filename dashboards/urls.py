@@ -25,5 +25,10 @@ urlpatterns = [
     # users
     path('users/', views.users, name='users' ),
     # add user path
-    path('users/add',views.add_user, name='add_user')
+    path('users/add',views.add_user, name='add_user'),
+    # edit user path
+    path('users/edit/<int:pk>', views.edit_user, name='edit_user'),
+    #delete user path
+    # path('users/delete/<int:int>',views.delete_user, name='delete_user')
+
 ]

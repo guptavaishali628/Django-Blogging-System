@@ -53,6 +53,7 @@
           </div>
 
           <!-- Create Comment Form (Compact & Modern) -->
+          {% if user.is_authenticated %}
           <form action="" method="POST" class="mb-4">
             {% csrf_token %}
             <div class="form-group mb-2">
@@ -71,6 +72,19 @@
               Submit
             </button>
           </form>
+          {% else %}
+            <div class="p-3 mb-4 rounded text-center d-flex flex-column flex-sm-row align-items-center justify-content-between" 
+                style="background-color: #f8fafc; border: 1px dashed #cbd5e1; gap: 12px;">
+              <span class="text-secondary" style="font-size: 0.92rem;">
+                Want to write comment ? Please login first.
+              </span>
+              <a href="{% url 'login' %}" 
+                class="btn btn-outline-primary btn-sm px-4 font-weight-bold" 
+                style="border-radius: 5px; font-size: 0.85rem; letter-spacing: 0.2px;">
+                Login
+              </a>
+            </div>
+          {% endif %}
 
           <!-- Comments List -->
           {% if comments %}

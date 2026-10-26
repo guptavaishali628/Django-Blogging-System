@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Blog, About, SocialLink
+from .models import Category, Blog, About, SocialLink, Comment
 
 # prepopulated slug (here we will generate slug automatically based on title)
 # and pass BlogAdmin in Blog register
@@ -24,6 +24,7 @@ admin.site.register(Category)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(About, AboutAdmin)
 admin.site.register(SocialLink)
+admin.site.register(Comment)
 
 
 

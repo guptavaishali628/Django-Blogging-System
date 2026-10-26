@@ -1,6 +1,6 @@
 from django.shortcuts import redirect,render, get_object_or_404
-from django.http import HttpResponse
-from .models import Blog, Category
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Blog, Category, Comment
 # the Q objects allows u to makes the complex lookups such as OR operations
 from django.db.models import Q
 
@@ -33,8 +33,25 @@ def posts_by_category(request, category_id):
 # function for single page blogs display
 def blogs(request, slug):
     single_blog = get_object_or_404(Blog, slug=slug, status='Published')
+
+    # add comment
+    if request.method=='POST':
+        comment=Comment()
+        comment.user = request.user
+        comment.blog = single_blog
+        comment.comment = request.POST['comment']
+        comment.save()
+        return HttpResponseRedirect(request.path_info) # this will take u to the same page
+
+    # comments
+    comments=Comment.objects.filter(blog=single_blog)
+    # print('Comments:' , comments)
+    # count comment
+    comment_count = comments.count()
     context={
         'single_blog': single_blog,
+        'comments': comments,
+        'comment_count':comment_count
     }
     return render(request, 'blogs.html', context)
 
